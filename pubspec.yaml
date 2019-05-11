@@ -1,0 +1,16 @@
+# See https://www.dartlang.org/tools/pub/pubspec
+
+name: playground
+description: The playground mobile application.
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
