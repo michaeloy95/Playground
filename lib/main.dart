@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:playground/ui/hbo_max.dart';
+import 'package:playground/ui/hat_shop.dart';
 
 void main() {
   // Lock to portrait orientation.
@@ -9,7 +9,7 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(_buildMaterialApp(HboMaxMainPage()));
+  runApp(_buildMaterialApp(HatShopMainPage()));
 }
 
 Widget _buildMaterialApp(Widget home) => MaterialApp(
