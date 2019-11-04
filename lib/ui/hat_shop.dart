@@ -59,21 +59,25 @@ class HatShopMainPage extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                height: 150,
-                child: Image.network(hat.imageUrl, fit: BoxFit.contain),
-              ),
-              Flexible(child: Container()),
-              Text(hat.name, style: TextStyle(fontSize: 14), textAlign: TextAlign.left),
-              Container(height: 5),
-              Text("\$${hat.price}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.left),
-            ],
+        child: InkWell(
+          borderRadius: BorderRadius.circular(25),
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HatShopDetailPage(hat))),
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.center,
+                  height: 150,
+                  child: Image.network(hat.imageUrl, fit: BoxFit.contain),
+                ),
+                Flexible(child: Container()),
+                Text(hat.name, style: TextStyle(fontSize: 14), textAlign: TextAlign.left),
+                Container(height: 5),
+                Text("\$${hat.price}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.left),
+              ],
+            ),
           ),
         ),
       );
@@ -128,7 +132,7 @@ class HatShopMainPage extends StatelessWidget {
     final cart = Text(
       "Cart",
       style: TextStyle(
-        fontSize: 32,
+        fontSize: 28,
         fontWeight: FontWeight.bold,
         color: Colors.white,
       ),
@@ -176,6 +180,213 @@ class HatShopMainPage extends StatelessWidget {
     );
 
     return container;
+  }
+}
+
+class HatShopDetailPage extends StatelessWidget {
+  static const _activeColor = const Color(0xffd3b184);
+
+  HatShopDetailPage(this.hat);
+
+  final Hat hat;
+
+  @override
+  Widget build(BuildContext context) {
+    final appBar = AppBar(
+      backgroundColor: Colors.white,
+      brightness: Brightness.light,
+      iconTheme: IconThemeData(color: Colors.black),
+      elevation: 0,
+    );
+
+    final scaffold = Scaffold(
+      appBar: appBar,
+      backgroundColor: Colors.white,
+      body: _buildBody(context),
+    );
+
+    return scaffold;
+  }
+
+  Widget _buildBody(BuildContext context) {
+    final image = Container(
+      height: 150,
+      margin: const EdgeInsets.only(bottom: 25.0),
+      child: Image.network(this.hat.imageUrl),
+    );
+
+    final images = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: List<Widget>.generate(4, (_) =>
+        Container(
+          height: 75,
+          width: 75,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: Colors.grey),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image.network(this.hat.imageUrl),
+          ),
+        ),
+      ),
+    );
+
+    final title = Padding(
+      padding: const EdgeInsets.all(15),
+      child: Text(
+        this.hat.name,
+        style: TextStyle(
+          fontSize: 36,
+          fontWeight: FontWeight.bold,
+          color: Colors.black
+        ),
+        textAlign: TextAlign.left,
+        maxLines: 2,
+      ),
+    );
+
+    final price = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Text(
+        "\$${this.hat.price}",
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.black
+        ),
+        textAlign: TextAlign.left,
+      ),
+    );
+
+    final description = Padding(
+      padding: const EdgeInsets.all(15),
+      child: Text(
+        "Featured on several of the runway looks, the high-domed hat is" +
+        "made from straw effect fabric interwoven with shiny lame threads.",
+        style: TextStyle(
+          fontSize: 16,
+          color: Colors.black,
+          height: 1.6,
+        ),
+        textAlign: TextAlign.left,
+      ),
+    );
+
+    final variations = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Text(
+        "VARIATIONS",
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: Colors.black
+        ),
+        textAlign: TextAlign.left,
+      ),
+    );
+
+    final colors = <Color>[
+      const Color(0xffd4a879),
+      const Color(0xff3c4b33),
+      const Color(0xff343b4b),
+    ];
+
+    final colorChoices = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: List<Widget>.generate(colors.length, (index) =>
+        Container(
+          margin: const EdgeInsets.only(left: 15, top: 15, bottom: 15),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+            border: Border.all(color: index == 2 ? Colors.grey : Colors.transparent),
+          ),
+          height: 33,
+          width: 33,
+          child: Container(
+            margin: const EdgeInsets.all(3),
+            decoration: BoxDecoration(
+              color: colors[index],
+              shape: BoxShape.circle,
+            ),
+          ),
+        ),
+      ),
+    );
+
+    final likeButton = InkWell(
+      borderRadius: BorderRadius.circular(15),
+      onTap: (){},
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: Colors.grey),
+        ),
+        padding: const EdgeInsets.all(10),
+        child: Icon(Icons.star, color: Colors.black, size: 30),
+      ),
+    );
+
+    final addToCartButton = InkWell(
+      borderRadius: BorderRadius.circular(15),
+      onTap: (){},
+      child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: _activeColor,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: Colors.grey),
+        ),
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.only(left: 10),
+        child: Text(
+          "Add to cart",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+
+    final bottomRow = Padding(
+      padding: const EdgeInsets.all(15),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          likeButton,
+          Expanded(child: addToCartButton),
+        ],
+      ),
+    );
+
+    final column = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        image,
+        images,
+        Container(height: 25),
+        title,
+        price,
+        description,
+        Container(height: 25),
+        variations,
+        colorChoices,
+        Expanded(child: Container()),
+        bottomRow,
+      ],
+    );
+
+    final body = SafeArea(
+      child: Center(
+        child: column,
+      ),
+    );
+
+    return body;
   }
 }
 
