@@ -2,6 +2,7 @@
 
 name: playground
 description: The playground mobile application.
+version: 0.0.1
 
 dependencies:
   flutter:

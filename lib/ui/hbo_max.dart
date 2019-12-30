@@ -82,6 +82,11 @@ class HboMaxMainPage extends StatelessWidget {
       ],
     );
 
+    final tappableBackButton = GestureDetector(
+      onTap: () => Navigator.pop(context),
+      child: headerBackButton,
+    );
+
     final headerToolbarItems = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -99,7 +104,7 @@ class HboMaxMainPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                headerBackButton,
+                tappableBackButton,
                 headerToolbarItems,
               ],
             ),

@@ -18,7 +18,7 @@ class HatShopMainPage extends StatelessWidget {
       pinned: true,
       leading: IconButton(
         icon: Icon(Icons.arrow_back_ios),
-        onPressed: (){},
+        onPressed: () => Navigator.pop(context),
       ),
       actions: <Widget>[
         IconButton(
